@@ -1,0 +1,1 @@
+db.getCollection('lessons').insert({id:"4",title:"Test", teacher:"User.Test"})

@@ -9,6 +9,7 @@ const typeDefs = gql`
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    addLesson()
     saveLesson(
       title: String!
       teacher: String!
@@ -37,6 +38,7 @@ const typeDefs = gql`
   }
 
   type Lesson {
+    _id: ID
     title: String!
     teacher: String!
     host_id: String

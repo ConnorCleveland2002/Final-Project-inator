@@ -3,6 +3,13 @@ const { Schema, model } = require("mongoose");
 
 const lessonSchema = new Schema(
   {
+    id: {
+      type: Number,
+      allowNull: false,
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true,
+    },
     title: {
       type: String,
       required: true,
@@ -10,21 +17,24 @@ const lessonSchema = new Schema(
     },
     teacher: {
       type: String,
-      required: true,
-      unique: true,
+      required: false,
+      unique: false,
+      references: {
+        model: "user"
+      }
     },
     topic: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     play_url: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     host_id: {
-        type: String,
-        required: false,
-    }
+      type: String,
+      required: false,
+    },
     // password: {
     //   type: String,
     //   required: true,

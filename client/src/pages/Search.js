@@ -1,6 +1,6 @@
 import React, {
   useState,
-  // useEffect
+  useEffect
 } from "react";
 import {
   Jumbotron,
@@ -11,7 +11,7 @@ import {
   Card,
   CardColumns,
 } from "react-bootstrap";
-// import Auth from "../utils/auth";
+import Auth from "../utils/auth";
 // import { searchZoomLessons } from "../utils/API";
 // import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
 import {
@@ -20,7 +20,7 @@ import {
 } from "@apollo/client";
 // import { SAVE_LESSON } from "../utils/mutations";
 import {
-  // GET_ME,
+  GET_ME,
   GET_LESSONS
 } from "../utils/queries";
 import Preview from "../components/Preview";
@@ -34,7 +34,32 @@ const Search = () => {
   const [searchedLessons, setSearchedLessons] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   // const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
-  const items = data?.searchLessons || [];
+  const items = data?.searchInput || [
+    {
+      id: "1",
+      title: "Team Generator",
+      teacher: "User.3",
+      topic: "Topic 1",
+      play_url: "https://youtu.be/__U9gIjgnZ0",
+      host_id: "1234",
+    },
+    {
+      id: "2",
+      title: "Employee Tracker",
+      teacher: "User.2",
+      topic: "Topic 1 , Topic 2",
+      play_url: "https://youtu.be/X4-M5UD_DTk",
+      host_id: "2341",
+    },
+    {
+      id: "3",
+      title: "E-Commerce",
+      teacher: "User.1",
+      topic: "Topic 2",
+      play_url: "https://youtu.be/cE7ZWU1DwPY",
+      host_id: "3412",
+    },
+  ];
 
   // useEffect(() => {
   //   return () => saveLessonIds(savedLessonIds);
@@ -51,7 +76,7 @@ const Search = () => {
     try {
       const response = await searchInput
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        throw new Error("Search js error");
       }
       const { items } = await response.json();
       const lessonData = await items.map((lesson) => ({
@@ -80,7 +105,7 @@ const Search = () => {
 
   //   try {
   //     await saveLesson({
-  //       variables: { lesson: lessonToSave },
+  //       variables: { lesson: lessonToSave }, 
   //       update: (cache) => {
   //         const { me } = cache.readQuery({ query: GET_ME });
   //         cache.writeQuery({

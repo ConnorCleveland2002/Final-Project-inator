@@ -1,19 +1,15 @@
-export const getMe = (
-  // token
-) => {
+export const getMe = (token) => {
   return fetch("/api/users/me", {
     headers: {
       "Content-Type": "application/json",
-      // authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   });
 };
 
 export const searchLessons = () => {
-  return fetch("/api/lessons", {
-    
-  })
-}
+  return fetch("/api/lessons", {});
+};
 
 export const createUser = (userData) => {
   return fetch("/api/users", {

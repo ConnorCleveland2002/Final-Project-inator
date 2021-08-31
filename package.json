@@ -8,7 +8,8 @@
     "start": "node server/server.js",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "seed": "node server/seeds/seed.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,11 @@
   },
   "homepage": "https://github.com/ConnorCleveland2002/Final-Project-inator#readme",
   "dependencies": {
-    "apollo-server": "^3.1.2",
-    "apollo-server-core": "^3.1.2",
-    "apollo-server-express": "^3.1.2",
-    "graphql": "^15.5.1"
+    "apollo-server": "^2.15.0",
+    "apollo-server-core": "^2.15.0",
+    "apollo-server-express": "^2.15.0",
+    "concurrently": "^6.2.1",
+    "graphql": "^15.5.1",
+    "nodemon": "^2.0.12"
   }
 }

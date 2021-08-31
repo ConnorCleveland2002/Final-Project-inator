@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-colour {
+  background-color: #282c34;
+}
+
+.text-colour {
+  color: #61dafb;
+}

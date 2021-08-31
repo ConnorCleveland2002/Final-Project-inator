@@ -1,41 +1,40 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import logo from "./logo.svg";
 import "./App.css";
 import {
   ApolloProvider,
-  // ApolloClient,
-  // InMemoryCache,
-  // createHttpLink,
+  ApolloClient,
+  InMemoryCache,
+  createHttpLink,
 } from "@apollo/client";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Account from "./pages/Account";
+import Profile from "./pages/Profile";
 
-// const httpLink = createHttpLink({
-//   uri: "/graphql",
-// });
+const httpLink = createHttpLink({
+  uri: "/graphql",
+  cache: new InMemoryCache()
+});
 
-// const client = new ApolloClient({
-//   request: (operation) => {
-//     const token = localStorage.getItem("id_token");
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem("id_token");
 
-//     operation.setContext({
-//       headers: {
-//         authorization: token ? `Bearer ${token}` : "",
-//       },
-//     });
-//   },
-//   uri: "/graphql",
-//   link: httpLink,
-//   cache: new InMemoryCache(),
-// });
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+  },
+  uri: "/graphql",
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
 
 function App() {
-  console.log("App.js rendered");
   return (
     <ApolloProvider
-    // client={client}
+    client={client}
     >
       <Router>
         <>
@@ -43,7 +42,7 @@ function App() {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/account" component={Account} />
+            <Route exact path="/profile" component={Profile} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Switch>
         </>

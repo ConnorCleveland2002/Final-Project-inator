@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* background-image: url("background.jpg"); */
 }
 
 code {
@@ -14,6 +15,7 @@ code {
 
 body {
   font-family: 'Rubik', sans-serif;
+  background-image: url("background.jpg");
 }
 
 h1,

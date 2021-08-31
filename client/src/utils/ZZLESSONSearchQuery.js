@@ -1,0 +1,1 @@
+db.getCollection('lessons').find({ topic: { $regex: "Topic 2" } })

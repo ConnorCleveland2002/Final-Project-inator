@@ -24,6 +24,9 @@ export const ADD_USER = gql`
   }
 `;
 
+// export const ADD_LESSON = gql`
+// mutation addLesson($id: ID!, )
+// `
 export const SAVE_LESSON = gql`
   mutation saveLesson($lesson: saveLessonInput!) {
     saveLesson(lesson: $lesson) {
@@ -53,3 +56,12 @@ export const REMOVE_LESSON = gql`
     }
   }
 `;
+
+// export const SEARCH_LESSON = gql`
+// mutation searchLessons($topic: topic) {
+//   searchLessons(topic: $topic) {
+//     title
+//     topic
+//     play_url
+//   }
+// }`;

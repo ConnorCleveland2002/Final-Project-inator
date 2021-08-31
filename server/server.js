@@ -5,7 +5,6 @@ const routes = require("./routes");
 const { ApolloServer } = require("apollo-server-express");
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
-const mongoose = require("mongoose");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -25,18 +24,15 @@ startApollo();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/codeware", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../client/build")));
 }
 
-app.use(routes);
+// app.use(routes);
+app.use((req, res, next) => {
+  if (req.originalUrl === "/graphql") return next();
+    res.sendFile(path.join(__dirname, "../client/public/index.html"));
+});
 
 db.once("open", () => {
   app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));

@@ -1,0 +1,1 @@
+db.getCollection('users').insert({username:"Test", password:"test", email:"test@gmail.com"})

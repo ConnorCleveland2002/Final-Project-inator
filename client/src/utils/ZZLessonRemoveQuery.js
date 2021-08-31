@@ -1,0 +1,1 @@
+db.getCollection('lessons').remove({id:"4"})

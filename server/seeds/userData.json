@@ -1,0 +1,20 @@
+[
+    {
+        "id": "1",
+        "username": "Connor Cleveland",
+        "email": "connorcleveland2002@gmail.com",
+        "password": "Connor"
+    },
+    {
+        "id": "2",
+        "username": "James Baxter",
+        "email": "jamesbaxter@gmail.com",
+        "password": "jb"    
+    },
+    {
+        "id": "3",
+        "username": "BoJack Horseman",
+        "email": "bojack@gmail.com",
+        "password": "bjh"
+    }
+]
