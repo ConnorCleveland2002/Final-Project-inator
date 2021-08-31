@@ -32,6 +32,7 @@ import Account from "./pages/Account";
 // });
 
 function App() {
+  console.log("App.js rendered");
   return (
     <ApolloProvider
     // client={client}

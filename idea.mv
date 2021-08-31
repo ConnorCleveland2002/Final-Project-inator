@@ -1,0 +1,14 @@
+eventbrite - zoom - chat(socket.io) - hosting videos(cloudinary)
+
+Students:
+-  Favourite Videos {Button to add to favourites, will be favourite_videos array}
+-  Favourite Teachers {Button to add to favourites, will be favourite_teachers array}
+//-  Favourite Events [eventbrite]
+//-  Choose topics/Favourite Topics [Back end, javascript, etc]
+-  Get lecture meeting invites (https://marketplace.zoom.us/docs/api-reference/zoom-api/meetings/meetingregistrantcreate)
+/(https://marketplace.zoom.us/docs/api-reference/zoom-api/meetings/meetinginvitelinkscreate)
+{After read title and desc, click "Get Link" button}
+
+Teacher:
+-  Create a meeting (https://marketplace.zoom.us/docs/api-reference/zoom-api/meetings/meetingcreate)
+-  Private/Public Videos [Site currency] (https://marketplace.zoom.us/docs/api-reference/zoom-api/cloud-recording/recordingget)
