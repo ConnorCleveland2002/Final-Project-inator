@@ -51,7 +51,3 @@ export const deleteLesson = (lessonId, token) => {
   });
 };
 
-// export const searchZoomLessons = (query) => {
-//     return fetch(`https://api.zoom.us/v2/meetings/${query}/recordings`);
-//     //query is MeetingID
-// };

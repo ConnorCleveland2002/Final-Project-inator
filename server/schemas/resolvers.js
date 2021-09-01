@@ -14,15 +14,9 @@ const resolvers = {
       const lessons = await Lesson.find({ topic: { $regex: searchInput } });
       return lessons;
     },
-    // searchLessons: async (parent, { searchInput }, context) => {
-    //   return await db.Lesson.find().where(searchInput = )
-    // }
   },
   Mutation: {
-    // searchLessons: async (parent, { searchInput }, context) => {
-    //   const lessons = await Lesson.find({ topic: searchInput });
-    //   return lessons;
-    // },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {

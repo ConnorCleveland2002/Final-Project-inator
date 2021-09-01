@@ -12,13 +12,12 @@ import {
   CardColumns,
 } from "react-bootstrap";
 import Auth from "../utils/auth";
-// import { searchZoomLessons } from "../utils/API";
-// import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
+import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
 import {
-  // useMutation,
+  useMutation,
   useQuery
 } from "@apollo/client";
-// import { SAVE_LESSON } from "../utils/mutations";
+import { SAVE_LESSON } from "../utils/mutations";
 import {
   GET_ME,
   GET_LESSONS
@@ -26,14 +25,14 @@ import {
 import Preview from "../components/Preview";
 
 const Search = () => {
-  // const [saveLesson] = useMutation(SAVE_LESSON);
+  const [saveLesson] = useMutation(SAVE_LESSON);
   const {
     loading,
     data
   } = useQuery(GET_LESSONS);
   const [searchedLessons, setSearchedLessons] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  // const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
+  const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
   const items = data?.searchInput || [
     {
       id: "1",
@@ -61,15 +60,16 @@ const Search = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   return () => saveLessonIds(savedLessonIds);
-  // });
+  useEffect(() => {
+    return () => saveLessonIds(savedLessonIds);
+  });
 
   const handleFormSubmit = async (event) => {
     console.log(items);
     event.preventDefault();
 
     if (!searchInput) {
+      console.log("Ricky's Pony is Dead");
       return false;
     }
 
@@ -78,7 +78,7 @@ const Search = () => {
       if (!response.ok) {
         throw new Error("Search js error");
       }
-      const { items } = await response.json();
+      // const { items } = await response.json();
       const lessonData = await items.map((lesson) => ({
         title: lesson.title,
         teacher: lesson.teacher || ["No teacher to display"],
@@ -93,38 +93,38 @@ const Search = () => {
     }
   };
 
-  // const handleSaveLesson = async (lessonId) => {
-  //   const lessonToSave = searchedLessons.find(
-  //     (lesson) => lesson.lessonId === lessonId
-  //   );
-  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
+  const handleSaveLesson = async (lessonId) => {
+    const lessonToSave = searchedLessons.find(
+      (lesson) => lesson.lessonId === lessonId
+    );
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  //   if (!token) {
-  //     return false;
-  //   }
+    if (!token) {
+      return false;
+    }
 
-  //   try {
-  //     await saveLesson({
-  //       variables: { lesson: lessonToSave }, 
-  //       update: (cache) => {
-  //         const { me } = cache.readQuery({ query: GET_ME });
-  //         cache.writeQuery({
-  //           query: GET_ME,
-  //           data: {
-  //             me: {
-  //               ...me,
-  //               savedLessons: [...me.savedLessons, lessonToSave],
-  //             },
-  //           },
-  //         });
-  //       },
-  //     });
+    try {
+      await saveLesson({
+        variables: { lesson: lessonToSave }, 
+        update: (cache) => {
+          const { me } = cache.readQuery({ query: GET_ME });
+          cache.writeQuery({
+            query: GET_ME,
+            data: {
+              me: {
+                ...me,
+                savedLessons: [...me.savedLessons, lessonToSave],
+              },
+            },
+          });
+        },
+      });
 
-  //     setSavedLessonIds([...savedLessonIds, lessonToSave.lessonId]);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+      setSavedLessonIds([...savedLessonIds, lessonToSave.lessonId]);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -174,7 +174,7 @@ const Search = () => {
                   <Card.Title>{lesson.title}</Card.Title>
                   <p className="small">Teachers: {lesson.teachers}</p>
                   <Card.Text>{lesson.topic}</Card.Text>
-                  {/* {Auth.loggedIn() && (
+                  {Auth.loggedIn() && (
                     <Button
                       disabled={savedLessonIds?.some(
                         (savedLessonId) => savedLessonId === lesson.lessonId
@@ -188,7 +188,7 @@ const Search = () => {
                         ? "This lesson has already been saved!"
                         : "Save this lesson!"}
                     </Button>
-                  )} */}
+                  )}
                 </Card.Body>
                 {lesson.preview ? (
                   <Preview url={lesson.play_url}></Preview>

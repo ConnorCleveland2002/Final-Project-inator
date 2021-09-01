@@ -3,13 +3,8 @@ import { ADD_USER } from "../utils/mutations";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import {
-  //   Jumbotron,
-  // Container,
-  //   Col,
     Form,
     Button,
-  //   Card,
-  //   CardColumns,
     Alert
 } from "react-bootstrap";
 

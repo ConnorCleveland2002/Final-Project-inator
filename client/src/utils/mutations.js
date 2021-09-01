@@ -24,9 +24,11 @@ export const ADD_USER = gql`
   }
 `;
 
-// export const ADD_LESSON = gql`
-// mutation addLesson($id: ID!, )
-// `
+export const ADD_LESSON = gql`
+mutation addLesson($id: ID!, $title: String!, $teacher: String!, $topic: String!, $play_url: String!, $host_id: String!) {
+  addLesson(id: $id, title: $title, teacher: $teacher, topic: $topic, play_url: $play_url, host_id: $host_id)
+}
+`
 export const SAVE_LESSON = gql`
   mutation saveLesson($lesson: saveLessonInput!) {
     saveLesson(lesson: $lesson) {
