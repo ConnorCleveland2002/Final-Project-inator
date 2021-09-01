@@ -3,13 +3,6 @@ const { Schema, model } = require("mongoose");
 
 const lessonSchema = new Schema(
   {
-    id: {
-      type: Number,
-      allowNull: false,
-      primaryKey: true,
-      unique: true,
-      autoIncrement: true,
-    },
     title: {
       type: String,
       required: true,

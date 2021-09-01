@@ -1,7 +1,16 @@
 import React, { useState } from "react";
-import { Tab, Modal, Button, Card, CardColumns, Nav } from "react-bootstrap";
+import {
+  Tab,
+  Modal,
+  Button,
+  // Card,
+  CardColumns,
+  Nav,
+  Container,
+} from "react-bootstrap";
 import Auth from "../utils/auth";
 import CreateLesson from "../components/CreateLesson";
+import SavedLessonsList from "./SavedLessonsList";
 
 const ProfileActions = () => {
   const [showModal, setShowModal] = useState(false);
@@ -9,7 +18,7 @@ const ProfileActions = () => {
   return (
     <>
       <Nav className="ml-auto">
-        <Card className="text-colour bg-colour">
+        <Container className="text-colour bg-colour">
           Profile Actions!
           <CardColumns>
             <Button
@@ -21,7 +30,13 @@ const ProfileActions = () => {
             </Button>
             <Button onClick={Auth.logout}>Logout</Button>
           </CardColumns>
-        </Card>
+        </Container>
+        <Container className="text-colour bg-colour">
+          <Button>Remove</Button>
+        </Container>
+
+              <SavedLessonsList />
+
         <Modal
           size="lg"
           show={showModal}

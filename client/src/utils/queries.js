@@ -7,6 +7,9 @@ export const GET_ME = gql`
       username
       email
       savedLessons {
+        _id
+        title
+        teacher
         host_id
         topic
         meeting_id
@@ -25,4 +28,10 @@ export const GET_LESSONS = gql`
       play_url
     }
   }
+`;
+
+export const GET_SAVED_LESSONS = gql`
+query getSavedLessons {
+
+}
 `;
