@@ -7,8 +7,14 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    login(email: String!
+      password: String!
+    ): Auth
+    addUser(
+      username: String!
+      email: String!
+      password: String!
+    ): Auth
     addLesson(
       title: String!
       teacher: String!
@@ -25,7 +31,9 @@ const typeDefs = gql`
       meeting_id: String
       play_url: String!
     ): User
-    removeLesson(title: String!): User
+    removeLesson(
+      title: String!
+    ): User
   }
 
   type User {

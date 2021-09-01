@@ -1,8 +1,11 @@
+import React from "react";
 import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import { Card, Container, CardColumns } from "react-bootstrap";
+import { useState } from "react";
 
 const SavedLessonsList = () => {
+  const [savedLessons, setSavedLessons] = useState([]);
   const {
     // loading,
     data,
@@ -12,16 +15,14 @@ const SavedLessonsList = () => {
 
   // event.preventDefault();
   try {
-    // const lessonData =
-    data.map((user) => ({
-      title: savedLessons.title,
-      teacher: savedLessons.teacher || ["No teacher to display"],
-      topic: savedLessons.description,
-      play_url: savedLessons.play_url || "",
+    const listData = data.map((user) => ({
+      title: user.savedLessons.title,
+      teacher: user.savedLessons.teacher || ["No teacher to display"],
+      topic: user.savedLessons.description,
+      play_url: user.savedLessons.play_url || "",
     }));
 
-    // setSearchedLessons(lessonData);
-    // setSearchInput("");
+    setSavedLessons(listData);
   } catch (err) {
     console.error(err);
   }
@@ -30,12 +31,12 @@ const SavedLessonsList = () => {
     <>
       <Container>
         <h2>
-          {searchedLessons.length
-            ? `Viewing ${searchedLessons.length} results:`
+          {savedLessons.length
+            ? `Viewing ${savedLessons.length} results:`
             : "Search for a lesson to begin"}
         </h2>
         <CardColumns>
-          {searchedLessons.map((lesson) => {
+          {savedLessons.map((lesson) => {
             return (
               <Card key={lesson.lessonId} border="dark">
                 {lesson.image ? (

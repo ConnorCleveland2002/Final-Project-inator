@@ -32,6 +32,16 @@ export const GET_LESSONS = gql`
 
 export const GET_SAVED_LESSONS = gql`
 query getSavedLessons {
-
+  me {
+    savedLessons {
+      _id
+      title
+      teacher
+      host_id
+      topic
+      meeting_id
+      play_url
+    }
+  }
 }
 `;

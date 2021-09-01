@@ -18,6 +18,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    savedLessons: {
+      type: Array,
+      required: false,
+    },
   },
   {
     toJSON: {
