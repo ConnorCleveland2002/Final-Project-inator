@@ -34,7 +34,7 @@ const AppNavbar = () => {
                 </Nav.Link>
                 {Auth.loggedIn() ? (
                 <>
-                  <Nav.Link as={Link} to="/Profile" className="text-colour">
+                  <Nav.Link as={Link} to="/profile" className="text-colour">
                     Profile
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
