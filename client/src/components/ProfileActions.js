@@ -13,18 +13,43 @@ import {
 import Auth from "../utils/auth";
 import CreateLesson from "../components/CreateLesson";
 // import SavedLessonsList from "./SavedLessonsList";
-// import { GET_ME } from "../utils/queries";
-import WhoAmI from "./WhoAmI";
+import { GET_ME } from "../utils/queries";
+// import WhoAmI from "./WhoAmI";
+import { useMutation, useQuery } from "@apollo/client";
+import { REMOVE_USER } from "../utils/mutations";
 
 const ProfileActions = () => {
   const [showModal, setShowModal] = useState(false);
   const [showResults, setShowResults] = React.useState(false);
+  const [meme, setMeme] = useState([]);
+  const { loading, data } = useQuery(GET_ME);
+  const removeUser = useMutation(REMOVE_USER);
+
+  const goGetMe = async (event) => {
+    event.preventDefault();
+
+    try {
+      //TODO: data.me.map is not a function?
+      console.log(data);
+      const meData = data.me.map((me) => ({
+        _id: me._id,
+        username: me.username,
+        email: me.email,
+      }))
+
+      setMeme(meData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
       <Nav className="ml-auto">
         <Container className="text-colour bg-colour">
-          <Card.Title><h1>Profile Actions!</h1></Card.Title>
+          <Card.Title>
+            <h1>Profile Actions!</h1>
+          </Card.Title>
           <CardColumns>
             <Button
               eventKey="create"
@@ -33,17 +58,40 @@ const ProfileActions = () => {
             >
               Add Lesson!
             </Button>
-            <Button onClick={Auth.logout}>Logout</Button>
+            <Button onClick={Auth.logout}>
+              Logout
+            </Button>
+            <Button onClick={() => removeUser}>Delete Account</Button>
           </CardColumns>
         </Container>
         <Container className="text-colour bg-colour">
-          <Button onClick={() => setShowResults(true)}>Who Am I?</Button>
+          <Button onClick={() => setShowResults(true)}>
+            Who Am I?
+          </Button>
         </Container>
 
         {/* <SavedLessonsList /> */}
         {/* (useQuery(GET_ME)) => */}
-        <Modal show={showResults} onHide={() => setShowResults(false)}>
-          <WhoAmI />
+        <Modal
+          show={showResults}
+          onHide={() => setShowResults(false)}
+          size="lg"
+          aria-labelledby="me-modal"
+        >
+          <Button onClick={goGetMe}>Press Me!</Button>
+          <Container>
+            <CardColumns>
+              {meme.map((me) => {
+                return (
+                  <Card.Body>
+                    <Card.Title>{me.username}</Card.Title>
+                    <Card.Text>{me.email}</Card.Text>
+                    <p className="small">ID: {me._id}</p>
+                  </Card.Body>
+                );
+              })}
+            </CardColumns>
+          </Container>
         </Modal>
 
         <Modal

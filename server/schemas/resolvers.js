@@ -10,17 +10,16 @@ const resolvers = {
         return userData;
       }
     },
-    searchLessons: async (parent, {searchInput}, context) => {
+    searchLessons: async (parent, { searchInput }, context) => {
       const lessons = await Lesson.find({ topic: { $regex: searchInput } });
       return lessons;
     },
     searchAllLessons: async (parent, args, context) => {
       const lessons = await Lesson.find();
       return lessons;
-    }
+    },
   },
   Mutation: {
-
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
@@ -42,6 +41,12 @@ const resolvers = {
         return { token, user };
       } catch (error) {
         console.log(error);
+      }
+    },
+    removeMe: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOneAndRemove({ _id: context.user._id });
+        return userData;
       }
     },
     addLesson: async (parent, args) => {

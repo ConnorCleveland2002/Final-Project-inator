@@ -4,29 +4,33 @@ import { Card, CardColumns, Container } from "react-bootstrap";
 import { GET_ME } from "../utils/queries";
 
 const WhoAmI = () => {
-    const [meme, setMeme] = useState([])
+  const [meme, setMeme] = useState([]);
+  const { loading, data } = useQuery(GET_ME);
+
+  const goGetMe = async (event) => {
     try {
-        const response = useQuery(GET_ME);
-        if (!response.ok) {
-            throw new Error("something went wrong!");
-        }
-    
+      // if (!response.ok) {
+      //   throw new Error("something went wrong!");
+      // }
 
-        const { items } = response.json();
+      // const { items } = response.json();
 
-        const meData = items.map((me) => ({
-            _id: me._id,
-            username: me.username,
-            email: me.email,
-        }));
-        setMeme(meData);
+      const meData = data.me.map((me) => ({
+        _id: me._id,
+        username: me.username,
+        email: me.email,
+      }));
+
+      setMeme(meData);
     } catch (err) {
-        console.error(err);
-    };
+      console.error(err);
+    }
+  };
 
   return (
     <>
       <Container>
+        {goGetMe()}
         <CardColumns>
           {meme.map((me) => {
             return (

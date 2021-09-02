@@ -17,11 +17,8 @@ import Preview from "../components/Preview";
 
 const Search = () => {
   const [saveLesson] = useMutation(SAVE_LESSON);
-  // const { loading, data } = useQuery(GET_LESSONS);
   const [searchedLessons, setSearchedLessons] = useState([]);
-  // const [searchInput, setSearchInput] = useState("");
   const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
-  // const { loading, data } = useQuery(GET_LESSONS);
   const { loading, data } = useQuery(SEARCH_ALL_LESSONS);
 
 
@@ -30,17 +27,9 @@ const Search = () => {
   });
 
   const handleFormSubmit = async (event) => {
-    // console.log(items);
     event.preventDefault();
 
-    // if (!searchInput) {
-    //   console.log("Ricky's Pony is Dead");
-    //   return false;
-    // }
-
     try {
-      // const items = data?.searchInput || [];
-      // const response = await SEARCH_ALL_LESSONS;
       const lessonData = data.searchAllLessons.map((lesson) => ({
         title: lesson.title,
         teacher: lesson.teacher || ["No teacher to display"],
@@ -49,7 +38,6 @@ const Search = () => {
       }));
 
       setSearchedLessons(lessonData);
-      // setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -115,63 +103,72 @@ const Search = () => {
         </Container>
       </Jumbotron>
 
-      <Container className="text-colour bg-colour">
+      <br></br>
+
+      <Container className="text-colour bg-colour rounded mb-0">
+        <br></br>
         <h2>
           {searchedLessons.length
             ? `Viewing ${searchedLessons.length} results:`
             : "Search for a lesson to begin"}
         </h2>
+        <br></br>
         <CardColumns>
           {searchedLessons.map((lesson) => {
             return (
-              <Card
-                className="bg-colour"
-                key={lesson.play_url}
-                border="dark"
-              >
-                {lesson.image ? (
-                  <Card.Img
-                    src={lesson.image}
-                    alt={`The cover for ${lesson.title}`}
-                    variant="top"
-                  />
-                ) : null}
-                <Card.Body>
-                  <Card.Title>{lesson.title}</Card.Title>
-                  <hr></hr>
-                  <p className="small">Teachers: {lesson.teacher}</p>
-                  <p className="small">Topic: {lesson.topic}</p>
-                  <p className="small">Link: {lesson.play_url}</p>
-                  <iframe
-                    width="560"
-                    height="315"
-                    allowFullScreen
-                    title={lesson.title}
-                    src={lesson.play_url}
-                  ></iframe>
-                  <br></br>
-                  {Auth.loggedIn() && (
-                    <Button
-                      disabled={savedLessonIds?.some(
-                        (savedLessonId) => savedLessonId === lesson.lessonId
-                      )}
-                      className="btn-block btn-info"
-                      onClick={() => handleSaveLesson(lesson.lessonId)}
-                    >
-                      {savedLessonIds?.some(
-                        (savedLessonId) => savedLessonId === lesson.lessonId
-                      )
-                        ? "This lesson has already been saved!"
-                        : "Save this lesson!"}
-                    </Button>
+              <>
+                <Card className="bg-colour" key={lesson.play_url} border="dark">
+                  {lesson.image ? (
+                    <Card.Img
+                      src={lesson.image}
+                      alt={`The cover for ${lesson.title}`}
+                      variant="top"
+                    />
+                  ) : null}
+                  <Card.Body>
+                    <Card.Title>{lesson.title}</Card.Title>
+                    <hr></hr>
+                    <p>
+                      Teachers: <span className="small">{lesson.teacher}</span>
+                    </p>
+                    <p>
+                      Topic: <span className="small">{lesson.topic}</span>
+                    </p>
+                    <p>
+                      Link: <span className="small">{lesson.play_url}</span>
+                    </p>
+                    <iframe
+                      width="560"
+                      height="315"
+                      allowFullScreen
+                      title={lesson.title}
+                      src={lesson.play_url}
+                    ></iframe>
+                    <br></br>
+                    {Auth.loggedIn() && (
+                      <Button
+                        disabled={savedLessonIds?.some(
+                          (savedLessonId) => savedLessonId === lesson.lessonId
+                        )}
+                        className="btn-block btn-info"
+                        onClick={() => handleSaveLesson(lesson.lessonId)}
+                      >
+                        {savedLessonIds?.some(
+                          (savedLessonId) => savedLessonId === lesson.lessonId
+                        )
+                          ? "This lesson has already been saved!"
+                          : "Save this lesson!"}
+                      </Button>
+                    )}
+                  </Card.Body>
+                  {lesson.preview ? (
+                    <Preview url={lesson.play_url}></Preview>
+                  ) : (
+                    ""
                   )}
-                </Card.Body>
-                {lesson.preview ? (
-                  <Preview url={lesson.play_url}></Preview>
-                ) : (
-                  ""
-                )}
-              </Card>
+                </Card>
+                <br></br>
+              </>
             );
           })}
         </CardColumns>

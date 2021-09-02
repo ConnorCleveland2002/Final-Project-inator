@@ -27,6 +27,9 @@ const typeDefs = gql`
       play_url: String!
     ): User
     removeLesson(play_url: String!): User
+    removeMe(
+      _id: ID
+    ): User
   }
 
   type User {
@@ -42,7 +45,6 @@ const typeDefs = gql`
     username: String
     email: String
     savedLessons: [Lesson]
-    savedTeachers: [User]
   }
 
   input saveLessonInput {
