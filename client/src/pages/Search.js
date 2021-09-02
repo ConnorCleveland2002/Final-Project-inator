@@ -101,6 +101,7 @@ const Search = () => {
             </Form.Row>
           </Form>
         </Container>
+        <br></br>
       </Jumbotron>
 
       <br></br>
