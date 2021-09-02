@@ -51,6 +51,7 @@ const AppNavbar = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+        
         <Modal
           size="lg"
           show={showModal}

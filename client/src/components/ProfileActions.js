@@ -89,19 +89,31 @@ const ProfileActions = () => {
           size="lg"
           aria-labelledby="me-modal"
         >
-          <Button onClick={goGetMe}>Press Me!</Button>
+          <Button onClick={goGetMe} size="lg" variant="primary">Press Me to Refresh!</Button>
+          <hr></hr>
+          <br></br>
           <Container>
             <CardColumns>
               {/* {meme.map((me) => { */}
-                {/* return ( */}
-                  <Card.Body>
-                <Card.Title>Email:  {meesa.email}</Card.Title>
-                <Card.Text>Username:  {meesa.username}</Card.Text>
-                <Card.Text>Saved Lessons:  [TBA]</Card.Text>
-                <Card.Text>Saved Users:  [TBA]</Card.Text>
-                    <p className="small">ID: {meesa._id}</p>
-                  </Card.Body>
-                {/* ); */}
+              {/* return ( */}
+              <Card.Body>
+                <Card.Title>Email: {meesa.email}</Card.Title>
+                <br></br>
+                <Card.Text>Username: {meesa.username}</Card.Text>
+                <br></br>
+                <Card.Text>
+                  Saved Lessons:  [TBA]
+                  {/* {meesa.savedLessons || "[TBA]"} */}
+                </Card.Text>
+                <br></br>
+                <Card.Text>
+                  Saved Users: {meesa.savedTeachers || "[TBA]"}
+                </Card.Text>
+                <br></br>
+                <br></br>
+                <p className="small">ID: {meesa._id}</p>
+              </Card.Body>
+              {/* ); */}
               {/* })} */}
             </CardColumns>
           </Container>
