@@ -19,7 +19,7 @@ const Search = () => {
   const [saveLesson] = useMutation(SAVE_LESSON);
   // const { loading, data } = useQuery(GET_LESSONS);
   const [searchedLessons, setSearchedLessons] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
+  // const [searchInput, setSearchInput] = useState("");
   const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
   // const { loading, data } = useQuery(GET_LESSONS);
   const { loading, data } = useQuery(SEARCH_ALL_LESSONS);
@@ -41,15 +41,15 @@ const Search = () => {
     try {
       // const items = data?.searchInput || [];
       // const response = await SEARCH_ALL_LESSONS;
-      const lessonData = await data.map((lesson) => ({
+      const lessonData = data.searchAllLessons.map((lesson) => ({
         title: lesson.title,
         teacher: lesson.teacher || ["No teacher to display"],
-        topic: lesson.description,
+        topic: lesson.topic,
         play_url: lesson.play_url || "",
       }));
 
       setSearchedLessons(lessonData);
-      setSearchInput("");
+      // setSearchInput("");
     } catch (err) {
       console.error(err);
     }
@@ -96,18 +96,18 @@ const Search = () => {
           <Form onSubmit={handleFormSubmit}>
             <Form.Row>
               <Col xs={12} md={8}>
-                <Form.Control
+                {/* <Form.Control
                   name="searchInput"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   type="text"
                   size="lg"
                   placeholder="Search for a lesson"
-                />
+                /> */}
               </Col>
               <Col xs={12} md={4}>
                 <Button type="submit" variant="success" size="lg">
-                  Submit Search
+                  Find Lessons!
                 </Button>
               </Col>
             </Form.Row>
@@ -124,7 +124,11 @@ const Search = () => {
         <CardColumns>
           {searchedLessons.map((lesson) => {
             return (
-              <Card key={lesson.lessonId} border="dark">
+              <Card
+                className="bg-colour"
+                key={lesson.play_url}
+                border="dark"
+              >
                 {lesson.image ? (
                   <Card.Img
                     src={lesson.image}
@@ -134,8 +138,18 @@ const Search = () => {
                 ) : null}
                 <Card.Body>
                   <Card.Title>{lesson.title}</Card.Title>
-                  <p className="small">Teachers: {lesson.teachers}</p>
-                  <Card.Text>{lesson.topic}</Card.Text>
+                  <hr></hr>
+                  <p className="small">Teachers: {lesson.teacher}</p>
+                  <p className="small">Topic: {lesson.topic}</p>
+                  <p className="small">Link: {lesson.play_url}</p>
+                  <iframe
+                    width="560"
+                    height="315"
+                    allowFullScreen
+                    title={lesson.title}
+                    src={lesson.play_url}
+                  ></iframe>
+                  <br></br>
                   {Auth.loggedIn() && (
                     <Button
                       disabled={savedLessonIds?.some(

@@ -7,6 +7,7 @@ import {
   CardColumns,
   Nav,
   Container,
+  Card,
 } from "react-bootstrap";
 // import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -23,7 +24,7 @@ const ProfileActions = () => {
     <>
       <Nav className="ml-auto">
         <Container className="text-colour bg-colour">
-          Profile Actions!
+          <Card.Title><h1>Profile Actions!</h1></Card.Title>
           <CardColumns>
             <Button
               eventKey="create"

@@ -24,7 +24,7 @@ const AppNavbar = () => {
           <Container fluid>
             <Navbar.Brand as={Link} to="/" className="text-colour">
               {/* possibly add in homepage w/ top teachers/lessons?  Maybe a like system? */}
-              Codeware Conglomerate
+              <h1>Codeware Conglomerate</h1>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbar" />
             <Navbar.Collapse id="navbar">
@@ -37,7 +37,7 @@ const AppNavbar = () => {
                   <Nav.Link as={Link} to="/profile" className="text-colour">
                     Profile
                   </Nav.Link>
-                  <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                  <Nav.Link onClick={Auth.logout} className="text-colour">Logout</Nav.Link>
                 </>
                 ) : (
                 <Nav.Link
