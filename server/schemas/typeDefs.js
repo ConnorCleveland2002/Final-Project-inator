@@ -28,7 +28,7 @@ const typeDefs = gql`
     ): User
     removeLesson(play_url: String!): User
     removeMe(
-      _id: ID
+      _id: String!
     ): User
   }
 

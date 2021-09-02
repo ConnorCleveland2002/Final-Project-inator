@@ -3,7 +3,7 @@ import {
   Tab,
   Modal,
   Button,
-  // Card,
+  ListGroup,
   CardColumns,
   Nav,
   Container,
@@ -25,9 +25,16 @@ const ProfileActions = () => {
   const [showResults, setShowResults] = React.useState(false);
   // const [meme, setMeme] = useState([]);
   const { loading, data } = useQuery(GET_ME);
-  const removeUser = useMutation(REMOVE_USER);
-
+  const [ removeUser ] = useMutation(REMOVE_USER);
   const meesa = data?.me || [];
+
+  const handleRemoveUser = async (e) => {
+    const response = await removeUser({
+      variables: {
+        _id: e.target.value
+      }
+    }).then(Auth.logout)
+  };
 
   const goGetMe = async (event) => {
     event.preventDefault();
@@ -71,7 +78,7 @@ const ProfileActions = () => {
                 <Button onClick={Auth.logout}>Logout</Button>
               </Col>
               <Col>
-                <Button onClick={() => removeUser}>Delete Account</Button>
+                <Button onClick={handleRemoveUser}>Delete Account</Button>
               </Col>
               <Col>
                 <Button onClick={() => setShowResults(true)}>Who Am I?</Button>
@@ -89,34 +96,38 @@ const ProfileActions = () => {
           size="lg"
           aria-labelledby="me-modal"
         >
-          <Button onClick={goGetMe} size="lg" variant="primary">Press Me to Refresh!</Button>
-          <hr></hr>
-          <br></br>
-          <Container>
-            <CardColumns>
-              {/* {meme.map((me) => { */}
-              {/* return ( */}
-              <Card.Body>
-                <Card.Title>Email: {meesa.email}</Card.Title>
-                <br></br>
-                <Card.Text>Username: {meesa.username}</Card.Text>
-                <br></br>
-                <Card.Text>
-                  Saved Lessons:  [TBA]
-                  {/* {meesa.savedLessons || "[TBA]"} */}
-                </Card.Text>
-                <br></br>
-                <Card.Text>
-                  Saved Users: {meesa.savedTeachers || "[TBA]"}
-                </Card.Text>
-                <br></br>
-                <br></br>
-                <p className="small">ID: {meesa._id}</p>
-              </Card.Body>
-              {/* ); */}
-              {/* })} */}
-            </CardColumns>
-          </Container>
+          <Tab.Container>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                <Button onClick={goGetMe} size="lg" variant="primary pills">
+                  Press Me to Refresh!
+                </Button>
+              </Modal.Title>
+            </Modal.Header>
+            <Container>
+              <CardColumns>
+                {/* {meme.map((me) => { */}
+                {/* return ( */}
+                <Card.Body>
+                  <Card.Header>My Data!</Card.Header>
+                  <ListGroup>
+                    <ListGroup.Item>Email: {meesa.email}</ListGroup.Item>
+                    <ListGroup.Item>Username: {meesa.username}</ListGroup.Item>
+                    <ListGroup.Item>
+                      Saved Lessons: [TBA]
+                      {/* {meesa.savedLessons || "[TBA]"} */}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      Saved Users: {meesa.savedTeachers || "[TBA]"}
+                    </ListGroup.Item>
+                    <ListGroup.Item>ID: {meesa._id}</ListGroup.Item>
+                  </ListGroup>
+                </Card.Body>
+                {/* ); */}
+                {/* })} */}
+              </CardColumns>
+            </Container>
+          </Tab.Container>
         </Modal>
 
         <Modal

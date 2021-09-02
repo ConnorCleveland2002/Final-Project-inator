@@ -82,7 +82,7 @@ export const REMOVE_LESSON = gql`
 `;
 
 export const REMOVE_USER = gql`
-  mutation removeMe($_id: ID!) {
+  mutation removeMe($_id: String!) {
     removeMe(_id: $_id) {
       _id
     }
