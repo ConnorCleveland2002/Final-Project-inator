@@ -8,12 +8,16 @@ import {
   Nav,
   Container,
 } from "react-bootstrap";
+// import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
 import CreateLesson from "../components/CreateLesson";
-import SavedLessonsList from "./SavedLessonsList";
+// import SavedLessonsList from "./SavedLessonsList";
+// import { GET_ME } from "../utils/queries";
+import WhoAmI from "./WhoAmI";
 
 const ProfileActions = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showResults, setShowResults] = React.useState(false);
 
   return (
     <>
@@ -32,10 +36,14 @@ const ProfileActions = () => {
           </CardColumns>
         </Container>
         <Container className="text-colour bg-colour">
-          <Button>Remove</Button>
+          <Button onClick={() => setShowResults(true)}>Who Am I?</Button>
         </Container>
 
-              <SavedLessonsList />
+        {/* <SavedLessonsList /> */}
+        {/* (useQuery(GET_ME)) => */}
+        <Modal show={showResults} onHide={() => setShowResults(false)}>
+          <WhoAmI />
+        </Modal>
 
         <Modal
           size="lg"

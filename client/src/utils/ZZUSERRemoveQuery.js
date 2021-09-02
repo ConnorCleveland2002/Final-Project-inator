@@ -1,1 +1,0 @@
-db.getCollection('users').remove({username:"Test", password:"test", email:"test@gmail.com"})

@@ -20,8 +20,8 @@ export const GET_ME = gql`
 `;
 
 export const GET_LESSONS = gql`
-  query searchLessons {
-    searchLessons {
+  query searchLessons($regex: String!) {
+    searchLessons(searchInput: $regex) {
       title
       teacher
       topic
@@ -31,9 +31,24 @@ export const GET_LESSONS = gql`
 `;
 
 export const GET_SAVED_LESSONS = gql`
-query getSavedLessons {
-  me {
-    savedLessons {
+  query getSavedLessons {
+    me {
+      savedLessons {
+        _id
+        title
+        teacher
+        host_id
+        topic
+        meeting_id
+        play_url
+      }
+    }
+  }
+`;
+
+export const SEARCH_ALL_LESSONS = gql`
+  query searchAllLessons {
+    searchAllLessons {
       _id
       title
       teacher
@@ -43,5 +58,4 @@ query getSavedLessons {
       play_url
     }
   }
-}
 `;

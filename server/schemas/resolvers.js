@@ -14,6 +14,10 @@ const resolvers = {
       const lessons = await Lesson.find({ topic: { $regex: searchInput } });
       return lessons;
     },
+    searchAllLessons: async (parent, args, context) => {
+      const lessons = await Lesson.find();
+      return lessons;
+    }
   },
   Mutation: {
 
@@ -59,11 +63,11 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-    removeLesson: async (parent, { lessonId }, context) => {
+    removeLesson: async (parent, { lesson }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { savedLessons: { lessonId: lessonId } } },
+          { $pull: { savedLessons: { lesson } } },
           { new: true }
         );
         return updatedUser;

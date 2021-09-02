@@ -1,92 +1,102 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  // useEffect
+} from "react";
 import {
   Jumbotron,
   Container,
   Col,
   Form,
   Button,
-  Card,
-  CardColumns,
+  // Card,
+  // CardColumns,
 } from "react-bootstrap";
-import Auth from "../utils/auth";
-import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
-import { useMutation, useQuery } from "@apollo/client";
-import { SAVE_LESSON } from "../utils/mutations";
-import { GET_ME, GET_LESSONS, SEARCH_ALL_LESSONS } from "../utils/queries";
-import Preview from "../components/Preview";
+// import Auth from "../utils/auth";
+// import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
+// import { useMutation } from "@apollo/client";
+// import { SAVE_LESSON } from "../utils/mutations";
+// import {
+//   GET_ME,
+//   // GET_LESSONS
+// } from "../utils/queries";
+// import Preview from "../components/Preview";
+import SearchResults from "../components/SearchResults";
 
 const Search = () => {
-  const [saveLesson] = useMutation(SAVE_LESSON);
-  // const { loading, data } = useQuery(GET_LESSONS);
-  const [searchedLessons, setSearchedLessons] = useState([]);
+  // const [saveLesson] = useMutation(SAVE_LESSON);
+  // const [searchedLessons, setSearchedLessons] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
+  // const [savedLessonIds, setSavedLessonIds] = useState(getSavedLessonIds());
   // const { loading, data } = useQuery(GET_LESSONS);
-  const { loading, data } = useQuery(SEARCH_ALL_LESSONS);
+  // const items = data?.searchInput || [];
 
-
-  useEffect(() => {
-    return () => saveLessonIds(savedLessonIds);
-  });
+  // useEffect(() => {
+    // return () => saveLessonIds(savedLessonIds);
+  // });
 
   const handleFormSubmit = async (event) => {
     // console.log(items);
     event.preventDefault();
 
-    // if (!searchInput) {
-    //   console.log("Ricky's Pony is Dead");
-    //   return false;
-    // }
+    if (!searchInput) {
+      console.log("Ricky's Pony is Dead");
+      return false;
+    }
 
     try {
-      // const items = data?.searchInput || [];
-      // const response = await SEARCH_ALL_LESSONS;
-      const lessonData = await data.map((lesson) => ({
-        title: lesson.title,
-        teacher: lesson.teacher || ["No teacher to display"],
-        topic: lesson.description,
-        play_url: lesson.play_url || "",
-      }));
+    //   // const { loading, data } = useQuery(GET_LESSONS);
+    //   // const items = data?.searchInput || [];
+    //   const response = await GET_LESSONS(searchInput);
+    //   if (!response.ok) {
+    //     throw new Error("something went wrong!");
+    //   }
+    //   // const { items } = await response.json();
+      // const lessonData = await items.map((lesson) => ({
+      //   title: lesson.title,
+      //   teacher: lesson.teacher || ["No teacher to display"],
+      //   topic: lesson.description,
+      //   play_url: lesson.play_url || "",
+      // }));
 
-      setSearchedLessons(lessonData);
+      // setSearchedLessons(lessonData);
       setSearchInput("");
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleSaveLesson = async (lessonId) => {
-    const lessonToSave = searchedLessons.find(
-      (lesson) => lesson.lessonId === lessonId
-    );
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+  // const handleSaveLesson = async (lessonId) => {
+  //   const lessonToSave = searchedLessons.find(
+  //     (lesson) => lesson.lessonId === lessonId
+  //   );
+  //   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
+  //   if (!token) {
+  //     return false;
+  //   }
 
-    try {
-      await saveLesson({
-        variables: { lesson: lessonToSave },
-        update: (cache) => {
-          const { me } = cache.readQuery({ query: GET_ME });
-          cache.writeQuery({
-            query: GET_ME,
-            data: {
-              me: {
-                ...me,
-                savedLessons: [...me.savedLessons, lessonToSave],
-              },
-            },
-          });
-        },
-      });
+  //   try {
+  //     await saveLesson({
+  //       variables: { lesson: lessonToSave },
+  //       update: (cache) => {
+  //         const { me } = cache.readQuery({ query: GET_ME });
+  //         cache.writeQuery({
+  //           query: GET_ME,
+  //           data: {
+  //             me: {
+  //               ...me,
+  //               savedLessons: [...me.savedLessons, lessonToSave],
+  //             },
+  //           },
+  //         });
+  //       },
+  //     });
 
-      setSavedLessonIds([...savedLessonIds, lessonToSave.lessonId]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  //     setSavedLessonIds([...savedLessonIds, lessonToSave.lessonId]);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <>
@@ -115,7 +125,8 @@ const Search = () => {
         </Container>
       </Jumbotron>
 
-      <Container className="text-colour bg-colour">
+      <SearchResults searchInput={searchInput}/>
+      {/* <Container className="text-colour bg-colour">
         <h2>
           {searchedLessons.length
             ? `Viewing ${searchedLessons.length} results:`
@@ -161,7 +172,7 @@ const Search = () => {
             );
           })}
         </CardColumns>
-      </Container>
+      </Container>*/}
     </>
   );
 };

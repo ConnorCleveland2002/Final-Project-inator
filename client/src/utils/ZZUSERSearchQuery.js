@@ -1,1 +1,0 @@
-db.getCollection('users').find({username:"Connor Cleveland",password:"Connor"})

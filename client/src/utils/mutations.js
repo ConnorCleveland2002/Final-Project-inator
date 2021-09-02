@@ -24,7 +24,7 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_LESSON = gql`
-mutation addLesson($title: String!, $teacher: String!, $topic: String!, $play_url: String!, $host_id: String!) {
+mutation addLesson($title: String!, $teacher: String!, $topic: String!, $play_url: String!, $host_id: String) {
   addLesson(title: $title, teacher: $teacher, topic: $topic, play_url: $play_url, host_id: $host_id) {
     Lesson {
       title
@@ -37,11 +37,14 @@ mutation addLesson($title: String!, $teacher: String!, $topic: String!, $play_ur
 }
 `
 export const SAVE_LESSON = gql`
-  mutation saveLesson($lessonID: String!) {
+  mutation saveLesson($lesson: saveLessonInput) {
     saveLesson(lesson: $lesson) {
       username
-      email
+      email 
       savedLessons {
+        _id
+        title
+        teacher
         host_id
         topic
         meeting_id
@@ -52,8 +55,8 @@ export const SAVE_LESSON = gql`
 `;
 
 export const REMOVE_LESSON = gql`
-  mutation removeLesson($lessonId: String!) {
-    removeLesson(lessonId: $lessonId) {
+  mutation removeLesson($play_url: String!) {
+    removeLesson(play_url: $play_url) {
       username
       email
       savedLessons {

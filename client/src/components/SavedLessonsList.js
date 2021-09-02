@@ -29,11 +29,11 @@ const SavedLessonsList = () => {
 
   return (
     <>
-      <Container>
+      <Container className="text-colour bg-colour">
         <h2>
           {savedLessons.length
             ? `Viewing ${savedLessons.length} results:`
-            : "Search for a lesson to begin"}
+            : ""}
         </h2>
         <CardColumns>
           {savedLessons.map((lesson) => {
