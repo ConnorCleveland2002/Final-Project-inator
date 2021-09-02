@@ -12,7 +12,11 @@ import Auth from "../utils/auth";
 import { saveLessonIds, getSavedLessonIds } from "../utils/localStorage";
 import { useMutation, useQuery } from "@apollo/client";
 import { SAVE_LESSON } from "../utils/mutations";
-import { GET_ME, GET_LESSONS, SEARCH_ALL_LESSONS } from "../utils/queries";
+import {
+  GET_ME,
+  // GET_LESSONS,
+  SEARCH_ALL_LESSONS
+} from "../utils/queries";
 import Preview from "../components/Preview";
 
 const Search = () => {

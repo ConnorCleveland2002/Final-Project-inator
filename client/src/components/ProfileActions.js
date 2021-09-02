@@ -8,6 +8,8 @@ import {
   Nav,
   Container,
   Card,
+  Row,
+  Col,
 } from "react-bootstrap";
 // import { useQuery } from "@apollo/client";
 import Auth from "../utils/auth";
@@ -21,23 +23,26 @@ import { REMOVE_USER } from "../utils/mutations";
 const ProfileActions = () => {
   const [showModal, setShowModal] = useState(false);
   const [showResults, setShowResults] = React.useState(false);
-  const [meme, setMeme] = useState([]);
+  // const [meme, setMeme] = useState([]);
   const { loading, data } = useQuery(GET_ME);
   const removeUser = useMutation(REMOVE_USER);
+
+  const meesa = data?.me || [];
 
   const goGetMe = async (event) => {
     event.preventDefault();
 
     try {
       //TODO: data.me.map is not a function?
-      console.log(data);
-      const meData = data.me.map((me) => ({
-        _id: me._id,
-        username: me.username,
-        email: me.email,
-      }))
+      console.log(data.me.username, data.me.email, data.me._id);
+      // const meData = data.me
+      //   .map((me) => ({
+      //   _id: me._id,
+      //   username: me.username,
+      //   email: me.email,
+      // }));
 
-      setMeme(meData);
+      // setMeme(meData);
     } catch (err) {
       console.error(err);
     }
@@ -51,24 +56,30 @@ const ProfileActions = () => {
             <h1>Profile Actions!</h1>
           </Card.Title>
           <CardColumns>
-            <Button
-              eventKey="create"
-              onClick={() => setShowModal(true)}
-              className="text-colour"
-            >
-              Add Lesson!
-            </Button>
-            <Button onClick={Auth.logout}>
-              Logout
-            </Button>
-            <Button onClick={() => removeUser}>Delete Account</Button>
+            <Row>
+              <br></br>
+              <Col>
+                <Button
+                  eventKey="create"
+                  onClick={() => setShowModal(true)}
+                  className="text-colour"
+                >
+                  Add Lesson!
+                </Button>
+              </Col>
+              <Col>
+                <Button onClick={Auth.logout}>Logout</Button>
+              </Col>
+              <Col>
+                <Button onClick={() => removeUser}>Delete Account</Button>
+              </Col>
+              <Col>
+                <Button onClick={() => setShowResults(true)}>Who Am I?</Button>
+              </Col>
+            </Row>
           </CardColumns>
         </Container>
-        <Container className="text-colour bg-colour">
-          <Button onClick={() => setShowResults(true)}>
-            Who Am I?
-          </Button>
-        </Container>
+        <br></br>
 
         {/* <SavedLessonsList /> */}
         {/* (useQuery(GET_ME)) => */}
@@ -81,15 +92,17 @@ const ProfileActions = () => {
           <Button onClick={goGetMe}>Press Me!</Button>
           <Container>
             <CardColumns>
-              {meme.map((me) => {
-                return (
+              {/* {meme.map((me) => { */}
+                {/* return ( */}
                   <Card.Body>
-                    <Card.Title>{me.username}</Card.Title>
-                    <Card.Text>{me.email}</Card.Text>
-                    <p className="small">ID: {me._id}</p>
+                <Card.Title>Email:  {meesa.email}</Card.Title>
+                <Card.Text>Username:  {meesa.username}</Card.Text>
+                <Card.Text>Saved Lessons:  [TBA]</Card.Text>
+                <Card.Text>Saved Users:  [TBA]</Card.Text>
+                    <p className="small">ID: {meesa._id}</p>
                   </Card.Body>
-                );
-              })}
+                {/* ); */}
+              {/* })} */}
             </CardColumns>
           </Container>
         </Modal>
